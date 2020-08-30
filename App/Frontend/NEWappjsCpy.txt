@@ -1,0 +1,355 @@
+import React, { useState } from "react";
+import {
+  StyleSheet,
+  Text,
+  View,
+  Button,
+  textInput,
+  Image,
+  ActivityIndicator,
+} from "react-native";
+import { TextInput } from "react-native-gesture-handler";
+import Navigator from "./routes/homeStack";
+import Axios from "axios";
+
+var url = "http://192.168.1.113:5000/api";
+export default class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.navigation = this.props.navigation;
+  }
+
+  getAxios = () => {
+    Axios.get("${url}")
+      .then((responseJson) => {
+        console.log("succes axios :", responseJson);
+      })
+      .catch((error) => {
+        console.log("fail axios :", error);
+      });
+  };
+
+  getFetch = () => {
+    fetch(url)
+      .then((responseJson) => {
+        console.log("succes fetch :", responseJson);
+      })
+      .catch((error) => {
+        console.log("fail fetch :", error);
+      });
+  };
+
+  render() {
+    return (
+      <View style={styles.container}>
+        <Button onPress={() => this.getAxios()} title={"get axios"}></Button>
+
+        <Button onPress={() => this.getFetch()} title={"get fetch"}></Button>
+      </View>
+    );
+  }
+}
+// }
+//   this.state = {
+//     isLoading: true,
+//     dataSource: null,
+//   };
+// }
+
+// export default class App extends React.Component {
+//   constructor(props) {
+//     super(props);
+//     this.state = {
+//       isLoading: true,
+//       dataSource: null,
+//     };
+//   }
+
+//   componentDidMount() {
+//     return fetch("127.0.0.1:5000/")
+//       .then((response) => response.json())
+//       .then((responseJson) => {
+//         this.setState({
+//           isLoading: false,
+//           dataSource: responseJson.movies,
+//         });
+//       })
+//       .catch((error) => {
+//         console.log(error);
+//       });
+//     fetch("https://myapiexample.com/endpoint/", {
+//       method: "POST",
+//       headers: {
+//         Accept: "application/json",
+//         "Content-Type": "application/json",
+//       },
+//       body: JSON.stringify({
+//         firstParam: "yourValue",
+//         secondParam: "yourOtherValue",
+//       }),
+//     });
+//   }
+
+//   render() {
+//     if (this.state.isLoading) {
+//       return (
+//         <View style={styles.container}>
+//           <ActivityIndicator />
+//         </View>
+//       );
+//     } else {
+//       let movies = this.state.dataSource.map((val, key) => {
+//         return (
+//           <View key={key} style={styles.item}>
+//             <Text>{val.title}</Text>
+//           </View>
+//         );
+//       });
+//       return <View style={styles.container}>{movies}</View>;
+// return (
+//   <View style={styles.container}>
+//     <Text style={styles.title}>Social Trade</Text>
+//     <TextInput
+//       style={styles.input}
+//       placeholder="Username"
+//       // onChangeText={(val) => setName(val)}
+//     />
+//     <TextInput
+//       // multiline
+//       // keyboardType="default"
+//       style={styles.input}
+//       placeholder="Password"
+//       // onChangeText={(val) => setPassword(val)}
+//     />
+//     <Button
+//       title="Login"
+//       style={styles.buttonContainer}
+//       color="white"
+//       fontWeight="Bold"
+//     />
+//     <Image
+//       style={styles.tinyLogo}
+//       source={require("../new_app/assetts/478509.png")}
+//     />
+
+//     {/* <Text style={styles.boldText}>
+//   My name is {name} and my password is {password}
+// </Text> */}
+//     {/* <Text style={styles.boldText}>
+//     His name is {person.name} and his age is {person.age}
+//   </Text> */}
+//     {/* <View style={styles.buttonContainer}>
+//     <Button title="update state" onPress={clickHandler} />
+//   </View> */}
+//   </View>
+// );
+//   }
+// }
+// }
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: "#4682b4",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  buttonContainer: {
+    marginTop: 20,
+    color: "white",
+  },
+  header: {
+    backgroundColor: "lightblue",
+    padding: 20,
+  },
+  boldText: {
+    fontWeight: "bold",
+  },
+  title: {
+    fontWeight: "bold",
+    fontSize: 38,
+    color: "white",
+    padding: 20,
+  },
+  tinyLogo: {
+    width: 50,
+    height: 50,
+    padding: 20,
+  },
+  body: {
+    backgroundColor: "yellow",
+    padding: 20,
+  },
+  input: {
+    borderWidth: 1,
+    borderColor: "#777",
+    padding: 8,
+    margin: 10,
+    width: 200,
+    backgroundColor: "seashell",
+  },
+});
+
+// const [person, setPerson] = useState({ name: "Mario", age: 40 });
+// const clickHandler = () => {
+//   setName("Andrey");
+//   setPerson({ name: "poo", age: 45 });
+// };
+
+// return <Navigator></Navigator>
+//   return (
+//     <View style={styles.container}>
+//       <Text style={styles.title}>Social Trade</Text>
+//       <TextInput
+//         style={styles.input}
+//         placeholder="Username"
+//         onChangeText={(val) => setName(val)}
+//       />
+//       <TextInput
+//         // multiline
+//         // keyboardType="default"
+//         style={styles.input}
+//         placeholder="Password"
+//         onChangeText={(val) => setPassword(val)}
+//       />
+//       <Button
+//         title="Login"
+//         style={styles.buttonContainer}
+//         color="white"
+//         fontWeight="Bold"
+//       />
+//       <Image
+//         style={styles.tinyLogo}
+//         source={require("../new_app/assetts/478509.png")}
+//       />
+
+//       {/* <Text style={styles.boldText}>
+//         My name is {name} and my password is {password}
+//       </Text> */}
+//       {/* <Text style={styles.boldText}>
+//           His name is {person.name} and his age is {person.age}
+//         </Text> */}
+//       {/* <View style={styles.buttonContainer}>
+//           <Button title="update state" onPress={clickHandler} />
+//         </View> */}
+//     </View>
+//   );
+// }
+
+// const styles = StyleSheet.create({
+//   container: {
+//     flex: 1,
+//     backgroundColor: "#4682b4",
+//     alignItems: "center",
+//     justifyContent: "center",
+//   },
+//   buttonContainer: {
+//     marginTop: 20,
+//     color: "white",
+//   },
+//   header: {
+//     backgroundColor: "lightblue",
+//     padding: 20,
+//   },
+//   boldText: {
+//     fontWeight: "bold",
+//   },
+//   title: {
+//     fontWeight: "bold",
+//     fontSize: 38,
+//     color: "white",
+//     padding: 20,
+//   },
+//   tinyLogo: {
+//     width: 50,
+//     height: 50,
+//     padding: 20,
+//   },
+//   body: {
+//     backgroundColor: "yellow",
+//     padding: 20,
+//   },
+//   input: {
+//     borderWidth: 1,
+//     borderColor: "#777",
+//     padding: 8,
+//     margin: 10,
+//     width: 200,
+//     backgroundColor: "seashell",
+//   },
+// });
+
+// // import { StatusBar } from "expo-status-bar";
+// // import React, { Component } from "react";
+// // import Papa from "papaparse";
+// // import { StyleSheet, Text, View } from "react-native";
+
+// // import {
+// //   LineChart,
+// //   BarChart,
+// //   PieChart,
+// //   ProgressChart,
+// //   ContributionGraph,
+// //   StackedBarChart,
+// // } from "react-native-chart-kit";
+// // import { Dimensions, SafeAreaView } from "react-native";
+
+// // export default function App() {
+// //   const line = {
+// //     labels: ["January", "February", "March", "April", "May", "June"],
+// //     datasets: [
+// //       {
+// //         data: [20, 45, 28, 80, 99, 43],
+// //         strokeWidth: 12, // optional
+// //       },
+// //     ],
+// //   };
+// //   const screenWidth = Dimensions.get("screen").width;
+// //   const screenHeight = Dimensions.get("screen").height;
+
+// //   return (
+// //     // <View style={styles.container}>
+// //     //   <Text>Open up App.js to start working on your app!</Text>
+// //     //   <StatusBar style="auto" />
+// //     // </View>
+// //     <SafeAreaView style={styles.container}>
+// //       <Text style={[styles.setFontSize]}>Bezier Line Chart</Text>
+// //       <LineChart
+// //         data={line}
+// //         width={screenWidth} // from react-native
+// //         height={screenHeight / 3}
+// //         yAxisLabel={"$"}
+// //         chartConfig={{
+// //           backgroundColor: "red",
+// //           backgroundGradientFrom: "lightblue",
+// //           backgroundGradientTo: "blue",
+// //           decimalPlaces: 0, // optional, defaults to 2dp
+// //           color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
+// //           style: {
+// //             borderRadius: 16,
+// //             borderColor: "white",
+// //           },
+// //         }}
+// //         bezier
+// //         style={{
+// //           marginVertical: 16,
+// //           borderRadius: 16,
+// //         }}
+// //       />
+// //     </SafeAreaView>
+// //   );
+// // }
+
+// // const styles = StyleSheet.create({
+// //   container: {
+// //     flex: 1,
+// //     backgroundColor: "black",
+// //     alignItems: "center",
+// //     // justifyContent: "center",
+// //     flexDirection: "column",
+// //   },
+// //   setFontSize: {
+// //     fontSize: 20,
+// //     fontWeight: "bold",
+// //     color: "white",
+// //   },
+// // });
